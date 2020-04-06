@@ -4,25 +4,48 @@ $(document).ready(function(){
     var template = Handlebars.compile(source);
 
     var dataIniziale = moment('2018-01-01'); //selezione data partenza
+    var limiteIniziale = moment('2018-01-01');
+    var limiteFinale = moment('2018-12-31');
     stampaGiorniMese(dataIniziale);
-    stampaFestivi();
+    stampaFestivi(dataIniziale);
 
     $('.mese-succ').click(function(){
-        if (dataIniziale.month() > 10) {
-            alert('Anno successivo non presente')
+        $('.mese-prec').prop('disabled', false);
+        if (dataIniziale.isSameOrAfter(limiteFinale)) {
+            console.log(dataIniziale);
+            $('.mese-succ').prop('disabled', true);
         }else {
-            dataIniziale.add(1, 'months'); //passare al mese successivo
+            dataIniziale.add(1, 'month');
             stampaGiorniMese(dataIniziale);
+            stampaFestivi(dataIniziale);
         }
+
+        // if (dataIniziale.month() > 10) {
+        //     alert('Anno successivo non presente')
+        // }else {
+        //     dataIniziale.add(1, 'months'); //passare al mese successivo
+        //     stampaGiorniMese(dataIniziale);
+        //     stampaFestivi(dataIniziale);
+        // }
     });
 
     $('.mese-prec').click(function(){
-        if (dataIniziale.month() <= 0) {
-            alert('Anno precedente non presente')
-        }else {
-            dataIniziale.subtract(1, 'months'); //passare al mese precedente
-            stampaGiorniMese(dataIniziale);
-        }
+        // if (dataIniziale.month() <= 0) {                  //Metodo di controllo inizio e fine anno
+        //     alert('Anno precedente non presente')
+        // }else {
+        //     dataIniziale.subtract(1, 'months'); //passare al mese precedente
+        //     stampaGiorniMese(dataIniziale);
+        //     stampaFestivi(dataIniziale);
+            // }
+
+            $('.mese-succ').prop('disabled', false);
+            if (dataIniziale.isSameOrBefore(limiteIniziale)) { //Altro metodo di controllo inizio fine anno
+                $('.mese-prec').prop('disabled', true);
+            }else {
+                dataIniziale.subtract(1, 'months'); //passare al mese precedente
+                stampaGiorniMese(dataIniziale);
+                stampaFestivi(dataIniziale);
+            }
     });
 
     function stampaGiorniMese(mese){
@@ -44,24 +67,20 @@ $(document).ready(function(){
         }
     };
 
-    function stampaFestivi(){
+    function stampaFestivi(meseCorrente){
         $.ajax({
             url: 'https://flynn.boolean.careers/exercises/api/holidays',
             method: 'GET',
             data: {
                 year:2018,
-                month:0
+                month:meseCorrente.month()
             },
             success: function(data){
-                console.log(data);
                 var giorniFestivi = data.response;
-                console.log(giorniFestivi);
                 for (var i = 0; i < giorniFestivi.length; i++) {
                     var giornoFestivo = giorniFestivi[i];
-                    console.log(giornoFestivo);
                     var nomeFestivo = giornoFestivo.name;
                     var dataFestivo = giornoFestivo.date;
-                    console.log(nomeFestivo, dataFestivo);
                     $('#calendar li[data-day="'+ dataFestivo +'"]').addClass('festivo').append(' - ' + nomeFestivo);
                 }
             },

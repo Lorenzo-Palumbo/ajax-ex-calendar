@@ -3,16 +3,19 @@ $(document).ready(function(){
     var source = $('#calendar-template').html();
     var template = Handlebars.compile(source);
 
+    var source = $('#days-template').html();
+    var template = Handlebars.compile(source);
+
     var dataIniziale = moment('2018-01-01'); //selezione data partenza
     var limiteIniziale = moment('2018-01-01');
     var limiteFinale = moment('2018-12-31');
     stampaGiorniMese(dataIniziale);
     stampaFestivi(dataIniziale);
+    stampaNomeGiorni(dataIniziale);
 
     $('.mese-succ').click(function(){
         $('.mese-prec').prop('disabled', false);
         if (dataIniziale.isSameOrAfter(limiteFinale)) {
-            console.log(dataIniziale);
             $('.mese-succ').prop('disabled', true);
         }else {
             dataIniziale.add(1, 'month');
@@ -47,6 +50,12 @@ $(document).ready(function(){
                 stampaFestivi(dataIniziale);
             }
     });
+
+    function stampaNomeGiorni(mese){
+        $('#days').empty();
+        var nomeGiorno = mese.days();
+        console.log(nomeGiorno);
+    };
 
     function stampaGiorniMese(mese){
         $('#calendar').empty();

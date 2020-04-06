@@ -4,12 +4,81 @@
     padding: 0;
 }
 
-.top-calendar,
+.container-full{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+
+.container{
+    border: 1px solid gray;
+    border-radius: 5px
+}
+
+.top-calendar{
+    height: 70px;
+    background-color: blue;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    color: white
+}
+
+.left-button{
+    margin-right: 50px
+}
+
+.right-button{
+    margin-left: 50px
+}
+
+.main-calendar{
+    height: 600px;
+    width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.name-days{
+    height: 100px;
+}
+
+.name-days li{
+    width: calc(700px / 7);
+    height: 100px;
+    font-weight: bold;
+}
+
+.number-days{
+    height: 500px;
+}
+
+.main-calendar ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-calendar li{
+    width: calc(700px / 7);
+    height: calc(600px / 6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .top-calendar,
 .main-calendar{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.top-calendar{
+
 }
 
 .btn-navigation{
@@ -33,4 +102,4 @@
 
 .festivo{
     color: red
-}
+} */

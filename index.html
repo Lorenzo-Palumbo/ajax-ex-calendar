@@ -10,20 +10,42 @@
         <title>Ajax-ex-calendar</title>
     </head>
     <body>
-        <div class="top-calendar">
-            <h1><span id="nome-mese"></span> 2018</h1>
-            <div class="top-navigation">
+        <div class="container-full">
+            <div class="left-button">
                 <button class="btn-navigation mese-prec"><< Mese precedente</button>
+            </div>
+            <div class="container">
+                <div class="top-calendar">
+                    <h1><span id="nome-mese"></span> 2018</h1>
+                </div>
+                <div class="main-calendar">
+                    <div class="name-days">
+                        <ul id="days">
+                            <li>Lun</li>
+                            <li>Mar</li>
+                            <li>Mer</li>
+                            <li>Gio</li>
+                            <li>Ven</li>
+                            <li>Sab</li>
+                            <li>Dom</li>
+                        </ul>
+                    </div>
+                    <div class="number-days">
+                        <ul id="calendar">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="right-button">
                 <button class="btn-navigation mese-succ">Mese successivo >></button>
             </div>
         </div>
-        <div class="main-calendar">
-            <ul id="calendar">
-
-            </ul>
-        </div>
 
         <script id="calendar-template" type="text/x-handlebars-template">
+          <li data-day='{{dataDay}}'> {{day}} </li>
+        </script>
+        <script id="days-template" type="text/x-handlebars-template">
           <li data-day='{{dataDay}}'> {{day}} </li>
         </script>
 
